@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
+
 app.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/index.html'))
 );
@@ -36,8 +37,7 @@ app.post('/api/notes', (req, res) => {
       text
     };
 
-    //use fs to read and write the new note
-    // Obtain existing reviews
+    //use fs to read db and write the new note
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
       if (err) {
         console.error(err);
@@ -69,8 +69,9 @@ app.post('/api/notes', (req, res) => {
   } else {
     res.status(500).json('Error in posting note');
   }
-}
-);
+});
+
+
 app.listen(PORT, () =>
   console.log(`App listening at http://localhost:${PORT} 🚀`)
 );
